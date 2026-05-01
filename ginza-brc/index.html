@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>サイト管理ポータル | 銀座ベレアージュクリニック様</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #b08d57;
+    --primary-dark: #8b6e3f;
+    --bg: #faf7f2;
+    --card: #fff;
+    --text: #2c2419;
+    --text-light: #6b5d48;
+    --border: #e8ddc8;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Mincho ProN", "Yu Mincho", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px; }
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 40px 24px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  header h1 { font-size: 22px; font-weight: 400; letter-spacing: 0.05em; margin-bottom: 8px; }
+  header .sub { font-size: 14px; opacity: 0.9; }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 8px;
+    margin: 36px 0 16px;
+  }
+  p { margin-bottom: 12px; color: var(--text-light); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .site-list { list-style: none; }
+  .site-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .site-list li:last-child { border-bottom: none; }
+  .site-list a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .site-list a:hover { text-decoration: underline; }
+  .site-list .label {
+    font-size: 12px;
+    color: var(--text-light);
+    background: var(--bg);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* History */
+  .history-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .history-item:last-child { border-bottom: none; }
+  .history-date {
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .history-content {
+    margin-top: 4px;
+    color: var(--text);
+  }
+
+  /* Form */
+  form { display: grid; gap: 14px; }
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+  }
+  label .required { color: #c44; }
+  label .hint {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-left: 8px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.15);
+  }
+  button[type="submit"] {
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.15s;
+  }
+  button[type="submit"]:hover { background: var(--primary-dark); }
+
+  .priority-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .priority-grid label {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .priority-grid input { display: none; }
+  .priority-grid input:checked + span {
+    color: var(--primary);
+    font-weight: 700;
+  }
+  .priority-grid label:has(input:checked) {
+    border-color: var(--primary);
+    background: #faf3e8;
+  }
+
+  .contact-box {
+    background: #f5ede0;
+    border-left: 4px solid var(--primary);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .contact-box strong { color: var(--primary-dark); }
+
+  footer {
+    margin-top: 48px;
+    padding: 24px;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 12px;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 18px; }
+    h2 { font-size: 16px; }
+    .priority-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>サイト管理ポータル</h1>
+  <div class="sub">銀座ベレアージュクリニック様</div>
+</header>
+
+<div class="container">
+
+  <!-- 挨拶 -->
+  <div class="card">
+    <p>
+      いつもお世話になっております。<br>
+      銀座ベレアージュクリニック様のWebサイト管理ページです。<br>
+      修正依頼や進行状況などはこちらからご確認・ご依頼いただけます。
+    </p>
+  </div>
+
+  <!-- サイト一覧 -->
+  <h2>📋 管理中のWebサイト</h2>
+  <div class="card">
+    <ul class="site-list">
+      <li>
+        <a href="https://ginza-brc.jp/" target="_blank">ginza-brc.jp（ホームページ）</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://ginza-brc.jp/list/" target="_blank">診療メニュー</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://ginza-brc.jp/immunotherapy/" target="_blank">6種複合免疫療法</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://ginza-brc.jp/cancer_analysis/" target="_blank">がん遺伝子スクリーニング検査</a>
+        <span class="label">2026-05-01 新規公開</span>
+      </li>
+      <li>
+        <a href="https://ginza-brc.jp/healthcheck/" target="_blank">健診LP（広告運用中）</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://ginza-brc.jp/lpg/" target="_blank">広告用LP</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://ginza-brc.jp/cn/" target="_blank">中国語版</a>
+        <span class="label">公開中</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 直近の更新履歴 -->
+  <h2>🗓️ 直近の更新履歴</h2>
+  <div class="card">
+    <div class="history-item">
+      <div class="history-date">2026.05.01</div>
+      <div class="history-content">
+        ・「がん遺伝子スクリーニング検査」専用ページを公開（独自URL設定）<br>
+        ・トップページの該当バナーリンクを新ページに変更<br>
+        ・オゼンピック2mg料金を 26,400円に変更（日本語版・中国語版）
+      </div>
+    </div>
+    <div class="history-item">
+      <div class="history-date">2026.04.30</div>
+      <div class="history-content">
+        ・がん遺伝子スクリーニング検査ページの「料金」「料」表記を削除<br>
+        ・パソコン版の文字サイズを調整
+      </div>
+    </div>
+    <div class="history-item">
+      <div class="history-date">2026.04.27</div>
+      <div class="history-content">
+        ・がん遺伝子スクリーニング検査ページのレイアウト調整<br>
+        ・セクション順序を「おすすめ → 説明 → 金額」に変更
+      </div>
+    </div>
+  </div>
+
+  <!-- 修正依頼フォーム -->
+  <h2>✏️ 修正・追加のご依頼</h2>
+
+  <div class="contact-box">
+    <strong>📌 ご依頼の前に</strong><br>
+    フォーマットに沿ってご記入いただけますと、最短当日〜翌日に反映できます。<br>
+    画像差し替えや新ページ追加の場合は、画像ファイルを添付ください（フォーム送信後にメールで折り返しいただけます）。
+  </div>
+
+  <div class="card">
+    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST">
+      <!-- FormSubmit設定 -->
+      <input type="hidden" name="_subject" value="【サイト修正依頼】銀座ベレアージュクリニック様">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yuudai0714.github.io/client-portals/ginza-brc/thanks.html">
+
+      <div>
+        <label>ご担当者様のお名前 <span class="required">*</span></label>
+        <input type="text" name="ご担当者様" required placeholder="例：まや様">
+      </div>
+
+      <div>
+        <label>返信先メールアドレス <span class="required">*</span></label>
+        <input type="email" name="メールアドレス" required placeholder="example@ginza-brc.jp">
+      </div>
+
+      <div>
+        <label>修正対象のURL <span class="required">*</span> <span class="hint">該当ページのURL</span></label>
+        <input type="url" name="対象URL" required placeholder="https://ginza-brc.jp/list/">
+      </div>
+
+      <div>
+        <label>修正箇所 <span class="required">*</span> <span class="hint">どこを修正したいか具体的に</span></label>
+        <textarea name="修正箇所" required placeholder="例：診療メニューのオゼンピック価格"></textarea>
+      </div>
+
+      <div>
+        <label>現状 <span class="required">*</span> <span class="hint">今どうなっているか</span></label>
+        <textarea name="現状" required placeholder="例：38,390円(税込) と表示されている"></textarea>
+      </div>
+
+      <div>
+        <label>変更後 <span class="required">*</span> <span class="hint">どう変えたいか</span></label>
+        <textarea name="変更後" required placeholder="例：26,400円(税込) に変更"></textarea>
+      </div>
+
+      <div>
+        <label>優先度 <span class="required">*</span></label>
+        <div class="priority-grid">
+          <label>
+            <input type="radio" name="優先度" value="至急" required>
+            <span>⏰ 至急</span>
+          </label>
+          <label>
+            <input type="radio" name="優先度" value="通常" checked>
+            <span>🟢 通常</span>
+          </label>
+          <label>
+            <input type="radio" name="優先度" value="いつでも">
+            <span>⚪ いつでも</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label>希望反映日 <span class="hint">空欄なら最短対応</span></label>
+        <input type="date" name="希望反映日">
+      </div>
+
+      <div>
+        <label>補足・希望（任意）</label>
+        <textarea name="補足" placeholder="例：色は変えずそのまま / モバイルでも崩れないように"></textarea>
+      </div>
+
+      <button type="submit">📨 修正依頼を送信する</button>
+    </form>
+  </div>
+
+  <!-- お問い合わせ -->
+  <h2>📞 直接のご連絡</h2>
+  <div class="card">
+    <p>
+      お急ぎの場合や複雑なご依頼は、LINEまたはメールでも承ります。
+    </p>
+    <p>
+      <strong>LINE</strong>：（既存グループ）<br>
+      <strong>Email</strong>：yudai0714@ydk-ai.com<br>
+      <strong>担当</strong>：株式会社YDK 北田
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>株式会社YDK｜サイト管理サービス</p>
+  <p>Last updated: 2026-05-01</p>
+</footer>
+
+</body>
+</html>
