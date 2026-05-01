@@ -15,6 +15,9 @@
     --text: #2c2419;
     --text-light: #6b5d48;
     --border: #e8ddc8;
+    --inprogress: #d97706;
+    --completed: #2563eb;
+    --done: #16a34a;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Hiragino Mincho ProN", "Yu Mincho", serif;
@@ -75,22 +78,100 @@
     border-radius: 12px;
   }
 
-  /* History */
-  .history-item {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
+  /* Job Cards */
+  .job-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 14px;
   }
-  .history-item:last-child { border-bottom: none; }
-  .history-date {
-    font-size: 12px;
-    color: var(--primary);
+  .job-card.status-inprogress { border-left: 4px solid var(--inprogress); }
+  .job-card.status-completed { border-left: 4px solid var(--completed); }
+  .job-card.status-done { border-left: 4px solid var(--done); opacity: 0.85; }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .job-id {
+    font-size: 11px;
+    color: var(--text-light);
+    font-family: monospace;
+  }
+  .job-status {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: #fff;
+  }
+  .job-status.inprogress { background: var(--inprogress); }
+  .job-status.completed { background: var(--completed); }
+  .job-status.done { background: var(--done); }
+
+  .job-title {
+    font-size: 16px;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    color: var(--text);
+    margin-bottom: 4px;
   }
-  .history-content {
-    margin-top: 4px;
+  .job-meta {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  details {
+    margin: 12px 0;
+    background: #faf7f2;
+    border-radius: 4px;
+    padding: 0;
+  }
+  summary {
+    cursor: pointer;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    user-select: none;
+  }
+  details[open] summary { border-bottom: 1px solid var(--border); }
+  .job-spec {
+    padding: 12px 14px 12px 30px;
+    font-size: 13px;
     color: var(--text);
   }
+  .job-spec li { margin-bottom: 4px; }
+
+  .job-result {
+    background: #f5ede0;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .job-result a { color: var(--primary-dark); }
+
+  .confirm-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    transition: background 0.15s;
+  }
+  .confirm-btn:hover { background: var(--primary-dark); }
+  .confirm-btn.done { background: var(--done); cursor: default; }
 
   /* Form */
   form { display: grid; gap: 14px; }
@@ -112,6 +193,7 @@
   input[type="email"],
   input[type="url"],
   input[type="date"],
+  input[type="file"],
   select,
   textarea {
     width: 100%;
@@ -143,12 +225,14 @@
   }
   button[type="submit"]:hover { background: var(--primary-dark); }
 
-  .priority-grid {
+  .priority-grid,
+  .status-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
   }
-  .priority-grid label {
+  .priority-grid label,
+  .status-grid label {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -157,15 +241,16 @@
     cursor: pointer;
     font-weight: 500;
     transition: all 0.15s;
+    font-size: 13px;
   }
-  .priority-grid input { display: none; }
-  .priority-grid input:checked + span {
-    color: var(--primary);
-    font-weight: 700;
-  }
-  .priority-grid label:has(input:checked) {
+  .priority-grid input,
+  .status-grid input { display: none; }
+  .priority-grid label:has(input:checked),
+  .status-grid label:has(input:checked) {
     border-color: var(--primary);
     background: #faf3e8;
+    color: var(--primary-dark);
+    font-weight: 700;
   }
 
   .contact-box {
@@ -177,6 +262,12 @@
   }
   .contact-box strong { color: var(--primary-dark); }
 
+  .file-hint {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
   footer {
     margin-top: 48px;
     padding: 24px;
@@ -185,10 +276,21 @@
     font-size: 12px;
   }
 
+  /* Highlight target form section briefly */
+  .highlight {
+    animation: highlight 1.6s ease-out;
+  }
+  @keyframes highlight {
+    0% { box-shadow: 0 0 0 0 rgba(176, 141, 87, 0); }
+    20% { box-shadow: 0 0 0 6px rgba(176, 141, 87, 0.4); }
+    100% { box-shadow: 0 0 0 0 rgba(176, 141, 87, 0); }
+  }
+
   @media (max-width: 600px) {
     header h1 { font-size: 18px; }
     h2 { font-size: 16px; }
-    .priority-grid { grid-template-columns: 1fr; }
+    .priority-grid,
+    .status-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -206,7 +308,7 @@
     <p>
       いつもお世話になっております。<br>
       銀座ベレアージュクリニック様のWebサイト管理ページです。<br>
-      修正依頼や進行状況などはこちらからご確認・ご依頼いただけます。
+      ご依頼いただいた修正案件の一覧、進行状況、完了報告後のご確認やご質問はこちらから行えます。
     </p>
   </div>
 
@@ -245,46 +347,134 @@
     </ul>
   </div>
 
-  <!-- 直近の更新履歴 -->
-  <h2>🗓️ 直近の更新履歴</h2>
-  <div class="card">
-    <div class="history-item">
-      <div class="history-date">2026.05.01</div>
-      <div class="history-content">
-        ・「がん遺伝子スクリーニング検査」専用ページを公開（独自URL設定）<br>
-        ・トップページの該当バナーリンクを新ページに変更<br>
-        ・オゼンピック2mg料金を 26,400円に変更（日本語版・中国語版）
-      </div>
+  <!-- 進行中・完了案件 -->
+  <h2>🔧 修正案件・指示書</h2>
+  <p style="font-size: 13px;">
+    📌 各案件の「指示書を見る」で対応内容の詳細をご確認いただけます。<br>
+    ✅ 完了案件は「確認・フィードバックする」ボタンから確認結果やご質問をお送りください。
+  </p>
+
+  <!-- ▼ 案件カード（新しいものから） ▼ -->
+
+  <div class="job-card status-completed">
+    <div class="job-header">
+      <span class="job-id">#2026-05-01-cancer-page</span>
+      <span class="job-status completed">完了・ご確認ください</span>
     </div>
-    <div class="history-item">
-      <div class="history-date">2026.04.30</div>
-      <div class="history-content">
-        ・がん遺伝子スクリーニング検査ページの「料金」「料」表記を削除<br>
-        ・パソコン版の文字サイズを調整
-      </div>
+    <div class="job-title">がん遺伝子スクリーニング検査ページの独立化＋関連修正</div>
+    <div class="job-meta">依頼日: 2026-04-27〜05-01 ／ 完了日: 2026-05-01</div>
+
+    <details>
+      <summary>📋 指示書（対応内容）を見る</summary>
+      <ul class="job-spec">
+        <li>がん遺伝子スクリーニング検査の独立ページを <code>/cancer_analysis/</code> で公開</li>
+        <li>診療メニューのタブリンクを <code>#t6</code> から新URLに変更</li>
+        <li>トップページの「キャンサーファインド」バナーリンクを新URLに変更</li>
+        <li>セクション順序を「おすすめ → 説明 → 金額」に統一</li>
+        <li>「料金」「料」表記を削除</li>
+        <li>パソコン版の文字サイズ調整</li>
+        <li>オゼンピック2mg料金を 38,390円 → 26,400円 に変更（日本語版・中国語版）</li>
+      </ul>
+    </details>
+
+    <div class="job-result">
+      🔗 対応URL:
+      <a href="https://ginza-brc.jp/cancer_analysis/" target="_blank">/cancer_analysis/</a> ／
+      <a href="https://ginza-brc.jp/list/" target="_blank">/list/</a> ／
+      <a href="https://ginza-brc.jp/" target="_blank">トップ</a>
     </div>
-    <div class="history-item">
-      <div class="history-date">2026.04.27</div>
-      <div class="history-content">
-        ・がん遺伝子スクリーニング検査ページのレイアウト調整<br>
-        ・セクション順序を「おすすめ → 説明 → 金額」に変更
-      </div>
-    </div>
+
+    <button class="confirm-btn" onclick="openConfirmForm('#2026-05-01-cancer-page')">
+      ✅ 確認・フィードバックする
+    </button>
   </div>
 
-  <!-- 修正依頼フォーム -->
-  <h2>✏️ 修正・追加のご依頼</h2>
+  <!-- 過去の案件は完了扱いで省略表示 -->
+  <div class="job-card status-done">
+    <div class="job-header">
+      <span class="job-id">#2026-04-27-cancer-page-layout</span>
+      <span class="job-status done">確認済み</span>
+    </div>
+    <div class="job-title">がん遺伝子スクリーニング検査ページのレイアウト調整</div>
+    <div class="job-meta">完了: 2026-04-30</div>
+  </div>
+
+  <!-- 完了確認・フィードバックフォーム -->
+  <h2 id="confirm-section">💬 完了確認・フィードバック</h2>
+
+  <div class="contact-box">
+    <strong>📌 ご利用方法</strong><br>
+    対応完了の連絡を受けたら、対象URLをご確認の上、結果をお送りください。<br>
+    追加修正のご希望や質問がある場合は画像も添付できます。
+  </div>
+
+  <div class="card">
+    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="【確認・フィードバック】銀座ベレアージュクリニック様">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yuudai0714.github.io/client-portals/ginza-brc/thanks.html">
+
+      <div>
+        <label>ご担当者様のお名前 <span class="required">*</span></label>
+        <input type="text" name="ご担当者様" required placeholder="例：まや様">
+      </div>
+
+      <div>
+        <label>返信先メールアドレス <span class="required">*</span></label>
+        <input type="email" name="メールアドレス" required placeholder="example@ginza-brc.jp">
+      </div>
+
+      <div>
+        <label>対象案件番号 <span class="required">*</span> <span class="hint">「修正案件」一覧の#番号 or 内容</span></label>
+        <input type="text" name="案件" id="job-id-input" required placeholder="例：#2026-05-01-cancer-page">
+      </div>
+
+      <div>
+        <label>確認結果 <span class="required">*</span></label>
+        <div class="status-grid">
+          <label>
+            <input type="radio" name="確認結果" value="✓ OK・問題なし" required>
+            ✓ OK
+          </label>
+          <label>
+            <input type="radio" name="確認結果" value="🔄 再確認希望">
+            🔄 再確認
+          </label>
+          <label>
+            <input type="radio" name="確認結果" value="❓ 質問あり">
+            ❓ 質問あり
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label>確認してほしい箇所・追加質問 <span class="hint">どこを確認してほしいか具体的に</span></label>
+        <textarea name="コメント" placeholder="例：スマホで見たときに〇〇のところがズレているので確認お願いします"></textarea>
+      </div>
+
+      <div>
+        <label>添付画像 <span class="hint">複数選択可・スクショに印を付けて添付できます</span></label>
+        <input type="file" name="attachment" accept="image/*,.pdf" multiple>
+        <div class="file-hint">📎 画像・PDFを添付できます（合計10MBまで）</div>
+      </div>
+
+      <button type="submit">📨 送信する</button>
+    </form>
+  </div>
+
+  <!-- 新規修正依頼フォーム -->
+  <h2>✏️ 新規の修正・追加ご依頼</h2>
 
   <div class="contact-box">
     <strong>📌 ご依頼の前に</strong><br>
-    フォーマットに沿ってご記入いただけますと、最短当日〜翌日に反映できます。<br>
-    画像差し替えや新ページ追加の場合は、画像ファイルを添付ください（フォーム送信後にメールで折り返しいただけます）。
+    新しい修正・追加のご依頼はこちらから。<br>
+    日々のやりとりはLINEグループでも引き続き承りますが、フォームでお送りいただくと取りこぼしを防げます。
   </div>
 
   <div class="card">
-    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST">
-      <!-- FormSubmit設定 -->
-      <input type="hidden" name="_subject" value="【サイト修正依頼】銀座ベレアージュクリニック様">
+    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="【新規修正依頼】銀座ベレアージュクリニック様">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_next" value="https://yuudai0714.github.io/client-portals/ginza-brc/thanks.html">
@@ -323,16 +513,16 @@
         <label>優先度 <span class="required">*</span></label>
         <div class="priority-grid">
           <label>
-            <input type="radio" name="優先度" value="至急" required>
-            <span>⏰ 至急</span>
+            <input type="radio" name="優先度" value="⏰ 至急" required>
+            ⏰ 至急
           </label>
           <label>
-            <input type="radio" name="優先度" value="通常" checked>
-            <span>🟢 通常</span>
+            <input type="radio" name="優先度" value="🟢 通常" checked>
+            🟢 通常
           </label>
           <label>
-            <input type="radio" name="優先度" value="いつでも">
-            <span>⚪ いつでも</span>
+            <input type="radio" name="優先度" value="⚪ いつでも">
+            ⚪ いつでも
           </label>
         </div>
       </div>
@@ -340,6 +530,12 @@
       <div>
         <label>希望反映日 <span class="hint">空欄なら最短対応</span></label>
         <input type="date" name="希望反映日">
+      </div>
+
+      <div>
+        <label>添付画像 <span class="hint">スクショに印を付けて添付すると正確に伝わります</span></label>
+        <input type="file" name="attachment" accept="image/*,.pdf" multiple>
+        <div class="file-hint">📎 画像・PDFを添付できます（合計10MBまで）</div>
       </div>
 
       <div>
@@ -355,10 +551,10 @@
   <h2>📞 直接のご連絡</h2>
   <div class="card">
     <p>
-      お急ぎの場合や複雑なご依頼は、LINEまたはメールでも承ります。
+      お急ぎの場合や複雑なご依頼は、LINEグループまたはメールでも引き続き承ります。
     </p>
     <p>
-      <strong>LINE</strong>：（既存グループ）<br>
+      <strong>LINE</strong>：既存のグループでOK<br>
       <strong>Email</strong>：yudai0714@ydk-ai.com<br>
       <strong>担当</strong>：株式会社YDK 北田
     </p>
@@ -370,6 +566,23 @@
   <p>株式会社YDK｜サイト管理サービス</p>
   <p>Last updated: 2026-05-01</p>
 </footer>
+
+<script>
+  // 案件カードの「確認する」ボタン → フォーム自動入力＆スクロール
+  function openConfirmForm(jobId) {
+    const input = document.getElementById('job-id-input');
+    const section = document.getElementById('confirm-section');
+    const card = input.closest('.card');
+    if (input) input.value = jobId;
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (card) {
+      card.classList.remove('highlight');
+      void card.offsetWidth; // restart animation
+      card.classList.add('highlight');
+    }
+    setTimeout(() => input && input.focus(), 600);
+  }
+</script>
 
 </body>
 </html>
