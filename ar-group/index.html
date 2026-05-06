@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>サイト管理ポータル | 株式会社アールホールディングス様</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #6cccca;
+    --primary-dark: #3d8b89;
+    --bg: #f3faf9;
+    --card: #fff;
+    --text: #1f3a3a;
+    --text-light: #5a7676;
+    --border: #c9e6e3;
+    --inprogress: #d97706;
+    --completed: #2563eb;
+    --done: #16a34a;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px; }
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 40px 24px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  header h1 { font-size: 22px; font-weight: 400; letter-spacing: 0.05em; margin-bottom: 8px; }
+  header .sub { font-size: 14px; opacity: 0.9; }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 8px;
+    margin: 36px 0 16px;
+  }
+  p { margin-bottom: 12px; color: var(--text-light); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .site-list { list-style: none; }
+  .site-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .site-list li:last-child { border-bottom: none; }
+  .site-list a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .site-list a:hover { text-decoration: underline; }
+  .site-list .label {
+    font-size: 12px;
+    color: var(--text-light);
+    background: var(--bg);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* Job Cards */
+  .job-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .job-card.status-inprogress { border-left: 4px solid var(--inprogress); }
+  .job-card.status-completed { border-left: 4px solid var(--completed); }
+  .job-card.status-done { border-left: 4px solid var(--done); opacity: 0.85; }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .job-id {
+    font-size: 11px;
+    color: var(--text-light);
+    font-family: monospace;
+  }
+  .job-status {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: #fff;
+  }
+  .job-status.inprogress { background: var(--inprogress); }
+  .job-status.completed { background: var(--completed); }
+  .job-status.done { background: var(--done); }
+
+  .job-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .job-meta {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  details {
+    margin: 12px 0;
+    background: var(--bg);
+    border-radius: 4px;
+    padding: 0;
+  }
+  summary {
+    cursor: pointer;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    user-select: none;
+  }
+  details[open] summary { border-bottom: 1px solid var(--border); }
+  .job-spec {
+    padding: 12px 14px 12px 30px;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .job-spec li { margin-bottom: 4px; }
+
+  .job-result {
+    background: #e3f3f1;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .job-result a { color: var(--primary-dark); }
+
+  .confirm-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    transition: background 0.15s;
+  }
+  .confirm-btn:hover { background: var(--primary-dark); }
+  .confirm-btn.done { background: var(--done); cursor: default; }
+
+  /* Form */
+  form { display: grid; gap: 14px; }
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+  }
+  label .required { color: #c44; }
+  label .hint {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-left: 8px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="date"],
+  input[type="file"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 204, 202, 0.20);
+  }
+  button[type="submit"] {
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.15s;
+  }
+  button[type="submit"]:hover { background: var(--primary-dark); }
+
+  .priority-grid,
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .priority-grid label,
+  .status-grid label {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    font-size: 13px;
+  }
+  .priority-grid input,
+  .status-grid input { display: none; }
+  .priority-grid label:has(input:checked),
+  .status-grid label:has(input:checked) {
+    border-color: var(--primary);
+    background: #e3f3f1;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+
+  .contact-box {
+    background: #e3f3f1;
+    border-left: 4px solid var(--primary);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .contact-box strong { color: var(--primary-dark); }
+
+  .file-hint {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding: 24px;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 12px;
+  }
+
+  .highlight { animation: highlight 1.6s ease-out; }
+  @keyframes highlight {
+    0% { box-shadow: 0 0 0 0 rgba(108, 204, 202, 0); }
+    20% { box-shadow: 0 0 0 6px rgba(108, 204, 202, 0.4); }
+    100% { box-shadow: 0 0 0 0 rgba(108, 204, 202, 0); }
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 18px; }
+    h2 { font-size: 16px; }
+    .priority-grid,
+    .status-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>サイト管理ポータル</h1>
+  <div class="sub">株式会社アールホールディングス様</div>
+</header>
+
+<div class="container">
+
+  <!-- 挨拶 -->
+  <div class="card">
+    <p>
+      いつもお世話になっております。<br>
+      アールホールディングス様のWebサイト管理ページです。<br>
+      ご依頼いただいた修正案件の一覧、進行状況、完了報告後のご確認やご質問はこちらから行えます。
+    </p>
+  </div>
+
+  <!-- サイト一覧 -->
+  <h2>📋 管理中のWebサイト</h2>
+  <div class="card">
+    <ul class="site-list">
+      <li>
+        <a href="https://hair-design-ar.com/" target="_blank">髪質改善専門店ar（公式HP）</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://recruit.hair-design-ar.com/" target="_blank">ar 求人LP</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://kaizen.hair-design-ar.com/" target="_blank">髪質改善ページ</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://classy-ar.com/" target="_blank">eyelash salon classy（公式HP）</a>
+        <span class="label">公開中</span>
+      </li>
+      <li>
+        <a href="https://recruit.classy-ar.com/" target="_blank">classy 求人LP</a>
+        <span class="label">最近修正</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 進行中・完了案件 -->
+  <h2>🔧 修正案件・指示書</h2>
+  <p style="font-size: 13px;">
+    📌 各案件の「指示書を見る」で対応内容の詳細をご確認いただけます。<br>
+    ✅ 完了案件は「確認・フィードバックする」ボタンから確認結果やご質問をお送りください。
+  </p>
+
+  <!-- ===== 進行中の案件 ===== -->
+
+  <div class="job-card status-inprogress">
+    <div class="job-header">
+      <span class="job-id">#2026-05-01-classy-recruit-image</span>
+      <span class="job-status inprogress">画像受領待ち</span>
+    </div>
+    <div class="job-title">classy求人LP トップページ写真の差し替え</div>
+    <div class="job-meta">対象：https://recruit.classy-ar.com/ ／ 画像受領後すぐ着手します</div>
+
+    <details>
+      <summary>📋 内容</summary>
+      <ul class="job-spec">
+        <li>トップページの写真を差し替え予定</li>
+        <li>対象ファイルの実物データ受領待ち</li>
+      </ul>
+    </details>
+  </div>
+
+  <!-- ===== 2026-05-01〜06 classy求人LP一括修正（完了） ===== -->
+
+  <div class="job-card status-completed">
+    <div class="job-header">
+      <span class="job-id">#2026-05-01-classy-recruit-revamp</span>
+      <span class="job-status completed">完了・ご確認ください</span>
+    </div>
+    <div class="job-title">classy求人LP 全面リニューアル修正（①〜⑦）</div>
+    <div class="job-meta">依頼日: 2026-05-01 ／ 完了日: 2026-05-06</div>
+
+    <details>
+      <summary>📋 指示書（対応内容）を見る</summary>
+      <ul class="job-spec">
+        <li>① <strong>会社概要セクション追加</strong>（07番として「運営会社」「会社の特徴」を新設・応募ご相談を08へ繰り下げ）</li>
+        <li>③ <strong>アイリスト募集中</strong> H3キャッチ＋6項目箇条書きを classy 用にリライト（土日祝もお休みOK／週休3日／フレックス／社会保険完備／平均給与22万〜30万以上／完全個室マンツーマン）</li>
+        <li>④ <strong>トップ介文パラグラフ</strong> ダメージレス・個室空間訴求の長文版に差し替え</li>
+        <li>⑤ <strong>こんなお悩みございませんか？</strong> 1項目目「アットホームなお店」→「仕事とプライベートのバランス」に変更</li>
+        <li>⑥ <strong>未経験やブランクがあっても安心！</strong> セクション 3パラグラフ構成にリライト（カリキュラム・本部モデル用意の訴求追加）</li>
+        <li>⑥-2 アイリスト募集中の箇条書きを <strong>PC表示でも表示</strong>＋<strong>中央揃え</strong>に統一（CSS追記）</li>
+        <li>⑦ <strong>勤務地</strong> 「classy２号店」→「classy駅前店」変更／「2025年春オープン」表記削除</li>
+      </ul>
+    </details>
+
+    <div class="job-result">
+      🔗 対応URL: <a href="https://recruit.classy-ar.com/" target="_blank">https://recruit.classy-ar.com/</a>
+    </div>
+
+    <button class="confirm-btn" onclick="openConfirmForm('#2026-05-01-classy-recruit-revamp')">
+      ✅ 確認・フィードバックする
+    </button>
+  </div>
+
+  <!-- 完了確認・フィードバックフォーム -->
+  <h2 id="confirm-section">💬 完了確認・フィードバック</h2>
+
+  <div class="contact-box">
+    <strong>📌 ご利用方法</strong><br>
+    対応完了の連絡を受けたら、対象URLをご確認の上、結果をお送りください。<br>
+    追加修正のご希望や質問がある場合は画像も添付できます。
+  </div>
+
+  <div class="card">
+    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="【確認・フィードバック】アールホールディングス様">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yuudai0714.github.io/client-portals/ar-group/thanks.html">
+
+      <div>
+        <label>ご担当者様のお名前 <span class="required">*</span></label>
+        <input type="text" name="ご担当者様" required placeholder="例：西中様">
+      </div>
+
+      <div>
+        <label>返信先メールアドレス <span class="required">*</span></label>
+        <input type="email" name="メールアドレス" required placeholder="example@hair-design-ar.com">
+      </div>
+
+      <div>
+        <label>対象案件番号 <span class="required">*</span> <span class="hint">「修正案件」一覧の#番号 or 内容</span></label>
+        <input type="text" name="案件" id="job-id-input" required placeholder="例：#2026-05-01-classy-recruit-revamp">
+      </div>
+
+      <div>
+        <label>確認結果 <span class="required">*</span></label>
+        <div class="status-grid">
+          <label>
+            <input type="radio" name="確認結果" value="✓ OK・問題なし" required>
+            ✓ OK
+          </label>
+          <label>
+            <input type="radio" name="確認結果" value="🔄 再確認希望">
+            🔄 再確認
+          </label>
+          <label>
+            <input type="radio" name="確認結果" value="❓ 質問あり">
+            ❓ 質問あり
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label>確認してほしい箇所・追加質問 <span class="hint">どこを確認してほしいか具体的に</span></label>
+        <textarea name="コメント" placeholder="例：スマホで見たときに〇〇のところがズレているので確認お願いします"></textarea>
+      </div>
+
+      <div>
+        <label>添付画像 <span class="hint">複数選択可・スクショに印を付けて添付できます</span></label>
+        <input type="file" name="attachment" accept="image/*,.pdf" multiple>
+        <div class="file-hint">📎 画像・PDFを添付できます（合計10MBまで）</div>
+      </div>
+
+      <button type="submit">📨 送信する</button>
+    </form>
+  </div>
+
+  <!-- 新規修正依頼フォーム -->
+  <h2>✏️ 新規の修正・追加ご依頼</h2>
+
+  <div class="contact-box">
+    <strong>📌 ご依頼の前に</strong><br>
+    新しい修正・追加のご依頼はこちらから。<br>
+    日々のやりとりはLINEでも引き続き承りますが、フォームでお送りいただくと取りこぼしを防げます。
+  </div>
+
+  <div class="card">
+    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="【新規修正依頼】アールホールディングス様">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yuudai0714.github.io/client-portals/ar-group/thanks.html">
+
+      <div>
+        <label>ご担当者様のお名前 <span class="required">*</span></label>
+        <input type="text" name="ご担当者様" required placeholder="例：西中様">
+      </div>
+
+      <div>
+        <label>返信先メールアドレス <span class="required">*</span></label>
+        <input type="email" name="メールアドレス" required placeholder="example@hair-design-ar.com">
+      </div>
+
+      <div>
+        <label>修正対象のサイト <span class="required">*</span></label>
+        <select name="対象サイト" required>
+          <option value="">選択してください</option>
+          <option value="hair-design-ar.com">髪質改善専門店ar（公式HP）</option>
+          <option value="recruit.hair-design-ar.com">ar 求人LP</option>
+          <option value="kaizen.hair-design-ar.com">髪質改善ページ</option>
+          <option value="classy-ar.com">eyelash salon classy（公式HP）</option>
+          <option value="recruit.classy-ar.com">classy 求人LP</option>
+          <option value="その他">その他（補足欄に記載）</option>
+        </select>
+      </div>
+
+      <div>
+        <label>修正対象のURL <span class="required">*</span> <span class="hint">該当ページのURL</span></label>
+        <input type="url" name="対象URL" required placeholder="https://recruit.classy-ar.com/">
+      </div>
+
+      <div>
+        <label>修正箇所 <span class="required">*</span> <span class="hint">どこを修正したいか具体的に</span></label>
+        <textarea name="修正箇所" required placeholder="例：トップの自己紹介文の3行目"></textarea>
+      </div>
+
+      <div>
+        <label>現状 <span class="required">*</span> <span class="hint">今どうなっているか</span></label>
+        <textarea name="現状" required placeholder="例：「アイリスト募集中」と表示されている"></textarea>
+      </div>
+
+      <div>
+        <label>変更後 <span class="required">*</span> <span class="hint">どう変えたいか</span></label>
+        <textarea name="変更後" required placeholder="例：「アイリスト2名募集中」に変更"></textarea>
+      </div>
+
+      <div>
+        <label>優先度 <span class="required">*</span></label>
+        <div class="priority-grid">
+          <label>
+            <input type="radio" name="優先度" value="⏰ 至急" required>
+            ⏰ 至急
+          </label>
+          <label>
+            <input type="radio" name="優先度" value="🟢 通常" checked>
+            🟢 通常
+          </label>
+          <label>
+            <input type="radio" name="優先度" value="⚪ いつでも">
+            ⚪ いつでも
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label>希望反映日 <span class="hint">空欄なら最短対応</span></label>
+        <input type="date" name="希望反映日">
+      </div>
+
+      <div>
+        <label>添付画像 <span class="hint">スクショに印を付けて添付すると正確に伝わります</span></label>
+        <input type="file" name="attachment" accept="image/*,.pdf" multiple>
+        <div class="file-hint">📎 画像・PDFを添付できます（合計10MBまで）</div>
+      </div>
+
+      <div>
+        <label>補足・希望（任意）</label>
+        <textarea name="補足" placeholder="例：色は変えずそのまま / モバイルでも崩れないように"></textarea>
+      </div>
+
+      <button type="submit">📨 修正依頼を送信する</button>
+    </form>
+  </div>
+
+  <!-- お問い合わせ -->
+  <h2>📞 直接のご連絡</h2>
+  <div class="card">
+    <p>
+      お急ぎの場合や複雑なご依頼は、LINEまたはメールでも引き続き承ります。
+    </p>
+    <p>
+      <strong>LINE</strong>：既存のトークでOK<br>
+      <strong>Email</strong>：yudai0714@ydk-ai.com<br>
+      <strong>担当</strong>：株式会社YDK 北田
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>株式会社YDK｜サイト管理サービス</p>
+  <p>Last updated: 2026-05-06</p>
+</footer>
+
+<script>
+  function openConfirmForm(jobId) {
+    const input = document.getElementById('job-id-input');
+    const section = document.getElementById('confirm-section');
+    const card = input.closest('.card');
+    if (input) input.value = jobId;
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (card) {
+      card.classList.remove('highlight');
+      void card.offsetWidth;
+      card.classList.add('highlight');
+    }
+    setTimeout(() => input && input.focus(), 600);
+  }
+</script>
+
+</body>
+</html>
