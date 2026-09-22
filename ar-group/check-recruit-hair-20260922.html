@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>修正内容ご確認シート | 美容師求人LP | 株式会社アールホールディングス様</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #6cccca;
+    --primary-dark: #3d8b89;
+    --bg: #f3faf9;
+    --card: #fff;
+    --text: #1f3a3a;
+    --text-light: #5a7676;
+    --border: #c9e6e3;
+    --before-bg: #fdf3f3;
+    --before-line: #e7b9b9;
+    --after-bg: #f1faf4;
+    --after-line: #a7d9bc;
+    --pending: #d97706;
+    --done: #16a34a;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 28px 20px 64px; }
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 36px 24px;
+    text-align: center;
+  }
+  header h1 { font-size: 21px; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 8px; }
+  header .sub { font-size: 14px; opacity: 0.92; }
+  header .date { font-size: 13px; opacity: 0.8; margin-top: 10px; }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 8px;
+    margin: 36px 0 16px;
+  }
+  p { margin-bottom: 12px; color: var(--text-light); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .lead { background: #fff; border-left: 4px solid var(--primary); }
+  .lead strong { color: var(--primary-dark); }
+
+  .btn-link {
+    display: inline-block;
+    background: var(--primary-dark);
+    color: #fff;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    margin: 6px 0;
+  }
+
+  /* 修正項目 */
+  .item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 18px; overflow: hidden; }
+  .item-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 20px;
+    background: #eaf7f6;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .num {
+    background: var(--primary-dark); color: #fff;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .item-title { font-size: 16px; font-weight: 600; color: var(--text); }
+  .badge {
+    font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px;
+    color: #fff; background: var(--done); margin-left: auto;
+  }
+  .badge.pending { background: var(--pending); }
+  .item-body { padding: 18px 20px; }
+  .place { font-size: 13px; color: var(--text-light); margin-bottom: 12px; }
+  .place span { background: #f0f7f6; padding: 2px 8px; border-radius: 4px; color: var(--primary-dark); font-weight: 600; }
+
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ba > div { border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+  .before { background: var(--before-bg); border: 1px solid var(--before-line); }
+  .after  { background: var(--after-bg);  border: 1px solid var(--after-line); }
+  .ba .label { font-size: 11px; font-weight: 700; letter-spacing: .08em; margin-bottom: 6px; display: block; }
+  .before .label { color: #b45454; }
+  .after .label { color: #2f8159; }
+  .ba pre {
+    font-family: inherit; white-space: pre-wrap; word-break: break-word;
+    margin: 0; line-height: 1.7; color: var(--text);
+  }
+  .hl { background: #fff2a8; padding: 0 3px; border-radius: 3px; font-weight: 700; }
+  .del { color: #b45454; text-decoration: line-through; }
+
+  .note { font-size: 13px; color: var(--text-light); margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); }
+
+  /* フォーム */
+  form { display: grid; gap: 14px; }
+  label { font-size: 14px; font-weight: 600; color: var(--text); display: block; margin-bottom: 5px; }
+  label .req { color: #c44; font-size: 12px; }
+  input[type="text"], input[type="email"], textarea, select {
+    width: 100%; padding: 11px 13px; border: 1px solid var(--border);
+    border-radius: 7px; font-size: 15px; font-family: inherit; background: #fff; color: var(--text);
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,204,202,.2); }
+  .radio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .radio-grid label {
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    padding: 13px; text-align: center; cursor: pointer; font-weight: 600; margin: 0;
+    transition: all .15s;
+  }
+  .radio-grid input { display: none; }
+  .radio-grid label:has(input:checked) { border-color: var(--primary-dark); background: #e7f6f5; color: var(--primary-dark); }
+  button[type="submit"] {
+    background: var(--primary-dark); color: #fff; padding: 15px 24px;
+    border: none; border-radius: 8px; font-size: 16px; font-weight: 700;
+    cursor: pointer; margin-top: 6px;
+  }
+  button[type="submit"]:hover { background: #327472; }
+
+  footer { margin-top: 44px; padding: 22px; text-align: center; color: var(--text-light); font-size: 12px; }
+
+  @media (max-width: 600px) {
+    .ba { grid-template-columns: 1fr; }
+    .radio-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>美容師求人LP　修正内容ご確認シート</h1>
+  <div class="sub">株式会社アールホールディングス様</div>
+  <div class="date">2026年9月22日 反映分</div>
+</header>
+
+<div class="container">
+
+  <div class="card lead">
+    <p style="margin-bottom:10px;">
+      いつもお世話になっております。<br>
+      9月22日にLINEでご指示いただいた内容を、<strong>すべて本番サイトへ反映いたしました。</strong>
+    </p>
+    <p style="margin-bottom:14px;">
+      下記の内容をご確認のうえ、ページ下部のフォームより結果をお知らせください。
+    </p>
+    <a class="btn-link" href="https://recruit.hair-design-ar.com/" target="_blank" rel="noopener">実際のページを開いて確認する</a>
+    <p style="font-size:13px; margin-top:10px; margin-bottom:0;">
+      ※ 変更が反映されていない場合は、ページ上で「Ctrl を押しながら F5」（スマホは一度ページを閉じてから開き直し）をお試しください。
+    </p>
+  </div>
+
+  <h2>反映した修正内容（5件）</h2>
+
+  <!-- 1 -->
+  <div class="item">
+    <div class="item-head">
+      <span class="num">1</span>
+      <span class="item-title">3ヶ月後からの基本給を追記</span>
+      <span class="badge">反映済み</span>
+    </div>
+    <div class="item-body">
+      <div class="place">該当箇所：<span>募集要項テーブル ＞ 給与 ＞ 【月給】</span></div>
+      <div class="ba">
+        <div class="before"><span class="label">修正前</span><pre>【月給】
+最低保証３ヶ月間　３０万
+歩合技術売り上げ　４０％</pre></div>
+        <div class="after"><span class="label">修正後</span><pre>【月給】
+最低保証３ヶ月間　３０万
+<span class="hl">３ヶ月後から基本給　２５万円</span>
+歩合技術売り上げ　４０％</pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="item">
+    <div class="item-head">
+      <span class="num">2</span>
+      <span class="item-title">スタッフ男女比の行を削除</span>
+      <span class="badge">反映済み</span>
+    </div>
+    <div class="item-body">
+      <div class="place">該当箇所：<span>募集要項テーブル ＞ 営業時間の下</span></div>
+      <div class="ba">
+        <div class="before"><span class="label">修正前</span><pre><span class="del">スタッフ男女比　／　女性のみ</span>
+（この行がありました）</pre></div>
+        <div class="after"><span class="label">修正後</span><pre>行ごと削除しました。
+営業時間の次は「給与」が続きます。</pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="item">
+    <div class="item-head">
+      <span class="num">3</span>
+      <span class="item-title">研修期間の保証を追記</span>
+      <span class="badge">反映済み</span>
+    </div>
+    <div class="item-body">
+      <div class="place">該当箇所：<span>募集要項テーブル ＞ 給与 ＞ 【月給】の最下部</span></div>
+      <div class="ba">
+        <div class="before"><span class="label">修正前</span><pre>６５万円以下の場合　　２５万円
+交通費：１００００円まで</pre></div>
+        <div class="after"><span class="label">修正後</span><pre>６５万円以下の場合　　２５万円
+<span class="hl">研修期間約１ヶ月　２２万円保証</span>
+交通費：１００００円まで</pre></div>
+      </div>
+      <div class="note">
+        交通費は給与とは別の項目のため、給与金額の一覧の最後（交通費の上）に入れております。<br>
+        交通費よりも下に置いた方がよろしければ、お知らせください。
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="item">
+    <div class="item-head">
+      <span class="num">4</span>
+      <span class="item-title">月給平均を35万円に変更</span>
+      <span class="badge">反映済み</span>
+    </div>
+    <div class="item-body">
+      <div class="place">該当箇所：<span>ページ上部「美容師（スタイリスト）募集」直下のチェックリスト</span></div>
+      <div class="ba">
+        <div class="before"><span class="label">修正前</span><pre>月給平均<span class="del">４０万円</span>
+（最低保証３０万）</pre></div>
+        <div class="after"><span class="label">修正後</span><pre>月給平均<span class="hl">３５万円</span>
+（最低保証３０万）</pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="item">
+    <div class="item-head">
+      <span class="num">5</span>
+      <span class="item-title">「安心のマニュアル完備」を追加</span>
+      <span class="badge">反映済み</span>
+    </div>
+    <div class="item-body">
+      <div class="place">該当箇所：<span>ページ上部「美容師（スタイリスト）募集」直下のチェックリスト</span></div>
+      <div class="ba">
+        <div class="before"><span class="label">修正前（右側の列）</span><pre>社会保険完備
+マンツーマン施術
+月給平均３５万円（最低保証３０万）
+充実の福利厚生</pre></div>
+        <div class="after"><span class="label">修正後（右側の列）</span><pre>社会保険完備
+マンツーマン施術
+月給平均３５万円（最低保証３０万）
+充実の福利厚生
+<span class="hl">安心のマニュアル完備</span></pre></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>ご確認・ご相談したい点（2件）</h2>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="num">A</span>
+      <span class="item-title">「週休3日制」→「月休日9日以上」について</span>
+      <span class="badge pending">画像の差し替えが必要</span>
+    </div>
+    <div class="item-body">
+      <p style="margin-bottom:12px;">
+        ご指示いただいた「週休3日制 → 月休日9日以上」の箇所は、
+        ページ一番上のメイン画像の中に<strong>文字が画像として入っている</strong>ため、
+        文章の打ち替えでは変更ができません。
+      </p>
+      <div class="ba">
+        <div class="before"><span class="label">現在（メイン画像内の丸いバッジ）</span><pre>最低保証３０万円　／　<span class="del">週休３日制</span>　／　土日祝も休み可能</pre></div>
+        <div class="after"><span class="label">ご希望</span><pre>最低保証３０万円　／　<span class="hl">月休日９日以上</span>　／　土日祝も休み可能</pre></div>
+      </div>
+      <div class="note">
+        メイン画像を新しく作り直して差し替える対応になります。<br>
+        こちらで画像を作成して差し替えますので、<strong>「進めてよい」旨をフォームでお知らせください。</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="num">B</span>
+      <span class="item-title">チェックリストの「週休３日取得OK」の扱い</span>
+      <span class="badge pending">ご判断ください</span>
+    </div>
+    <div class="item-body">
+      <p style="margin-bottom:12px;">
+        上のAでメイン画像を「月休日9日以上」に変更した場合、
+        すぐ下のチェックリストに残る「週休３日取得OK」と表現が食い違って見える可能性があります。
+      </p>
+      <div class="ba">
+        <div class="before"><span class="label">そのまま残す場合</span><pre>週休３日取得OK
+
+※ 画像は「月休日9日以上」、
+　 リストは「週休3日」と
+　 別々の表現になります</pre></div>
+        <div class="after"><span class="label">揃える場合</span><pre>月休日９日以上
+
+※ 画像とリストで
+　 表現が揃います</pre></div>
+      </div>
+      <div class="note">
+        どちらがよいか、フォームの備考欄にてお知らせください。
+      </div>
+    </div>
+  </div>
+
+  <h2>ご確認結果のご連絡</h2>
+
+  <div class="card">
+    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="【確認結果】美容師求人LP 2026-09-22 反映分／アールホールディングス様">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yuudai0714.github.io/client-portals/ar-group/thanks.html">
+      <input type="hidden" name="確認シート" value="美容師求人LP 2026-09-22 反映分">
+
+      <div>
+        <label>お名前 <span class="req">必須</span></label>
+        <input type="text" name="お名前" required placeholder="例：西中様">
+      </div>
+
+      <div>
+        <label>返信先メールアドレス <span class="req">必須</span></label>
+        <input type="email" name="メールアドレス" required placeholder="example@hair-design-ar.com">
+      </div>
+
+      <div>
+        <label>反映した5件の修正について <span class="req">必須</span></label>
+        <div class="radio-grid">
+          <label><input type="radio" name="5件の修正" value="すべてOK" required>すべてOK</label>
+          <label><input type="radio" name="5件の修正" value="直してほしい箇所あり">直してほしい箇所あり</label>
+        </div>
+      </div>
+
+      <div>
+        <label>A：メイン画像の差し替え（週休3日制 → 月休日9日以上）</label>
+        <div class="radio-grid">
+          <label><input type="radio" name="メイン画像の差し替え" value="進めてよい">進めてよい</label>
+          <label><input type="radio" name="メイン画像の差し替え" value="いったん保留">いったん保留</label>
+        </div>
+      </div>
+
+      <div>
+        <label>B：チェックリストの「週休３日取得OK」</label>
+        <div class="radio-grid">
+          <label><input type="radio" name="チェックリストの表現" value="月休日9日以上に揃える">月休日9日以上に揃える</label>
+          <label><input type="radio" name="チェックリストの表現" value="週休３日取得OKのまま">週休３日取得OKのまま</label>
+        </div>
+      </div>
+
+      <div>
+        <label>ご要望・修正指示（自由記入）</label>
+        <textarea name="ご要望・修正指示" placeholder="例：3番の研修期間は交通費の下に移動してほしい"></textarea>
+      </div>
+
+      <div>
+        <label>画像の添付（任意）</label>
+        <input type="file" name="attachment" accept="image/*,.pdf" multiple>
+        <p style="font-size:12px; margin:6px 0 0;">画面のスクリーンショットに印を付けて添付いただくと、正確に把握できます（合計10MBまで）。</p>
+      </div>
+
+      <button type="submit">確認結果を送信する</button>
+    </form>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <p style="margin-bottom:6px;"><strong style="color:var(--primary-dark);">直接のご連絡</strong></p>
+    <p style="margin-bottom:0;">
+      LINEでのご連絡も引き続き承っております。<br>
+      メール：yudai0714@ydk-ai.com　／　担当：株式会社YDK　北田
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>株式会社YDK｜サイト管理サービス</p>
+  <p>最終更新：2026年9月22日</p>
+</footer>
+
+</body>
+</html>
