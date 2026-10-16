@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>修正内容ご確認シート | 美容師求人LP | 株式会社アールホールディングス様</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #6cccca;
+    --primary-dark: #3d8b89;
+    --bg: #f3faf9;
+    --card: #fff;
+    --text: #1f3a3a;
+    --text-light: #5a7676;
+    --border: #c9e6e3;
+    --before-bg: #fdf3f3;
+    --before-line: #e7b9b9;
+    --after-bg: #f1faf4;
+    --after-line: #a7d9bc;
+    --done: #16a34a;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 28px 20px 64px; }
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 36px 24px;
+    text-align: center;
+  }
+  header h1 { font-size: 21px; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 8px; }
+  header .sub { font-size: 14px; opacity: 0.92; }
+  header .date { font-size: 13px; opacity: 0.8; margin-top: 10px; }
+
+  h2 {
+    font-size: 18px; font-weight: 600; color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 8px; margin: 36px 0 16px;
+  }
+  p { margin-bottom: 12px; color: var(--text-light); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; margin-bottom: 16px; }
+  .lead { border-left: 4px solid var(--primary); }
+  .lead strong { color: var(--primary-dark); }
+
+  .btn-link {
+    display: inline-block; background: var(--primary-dark); color: #fff; text-decoration: none;
+    padding: 13px 22px; border-radius: 8px; font-weight: 600; font-size: 15px; margin: 6px 0;
+  }
+
+  .item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 18px; overflow: hidden; }
+  .item-head {
+    display: flex; align-items: center; gap: 10px; padding: 14px 20px;
+    background: #eaf7f6; border-bottom: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .num {
+    background: var(--primary-dark); color: #fff; width: 26px; height: 26px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .item-title { font-size: 16px; font-weight: 600; color: var(--text); }
+  .badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; color: #fff; background: var(--done); margin-left: auto; }
+  .item-body { padding: 18px 20px; }
+  .place { font-size: 13px; color: var(--text-light); margin-bottom: 12px; }
+  .place span { background: #f0f7f6; padding: 2px 8px; border-radius: 4px; color: var(--primary-dark); font-weight: 600; }
+
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ba > div { border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+  .before { background: var(--before-bg); border: 1px solid var(--before-line); }
+  .after  { background: var(--after-bg);  border: 1px solid var(--after-line); }
+  .ba .label { font-size: 11px; font-weight: 700; letter-spacing: .08em; margin-bottom: 6px; display: block; }
+  .before .label { color: #b45454; }
+  .after .label { color: #2f8159; }
+  .ba pre { font-family: inherit; white-space: pre-wrap; word-break: break-word; margin: 0; line-height: 1.7; color: var(--text); }
+  .hl { background: #fff2a8; padding: 0 3px; border-radius: 3px; font-weight: 700; }
+  .del { color: #b45454; text-decoration: line-through; }
+
+  /* スマホ画面のスクリーンショット（修正前／修正後） */
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .shot { border-radius: 10px; padding: 10px; }
+  .shot.before { background: var(--before-bg); border: 1px solid var(--before-line); }
+  .shot.after  { background: var(--after-bg);  border: 1px solid var(--after-line); }
+  .shot .label { font-size: 12px; font-weight: 700; margin-bottom: 8px; display: block; }
+  .shot.before .label { color: #b45454; }
+  .shot.after .label { color: #2f8159; }
+  .shot img { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid rgba(0,0,0,.08); background: #fff; }
+  .shot .cap { font-size: 12px; color: var(--text-light); margin: 8px 0 0; line-height: 1.6; }
+  .zoom { font-size: 11px; color: var(--text-light); margin: 8px 0 0; }
+
+  .explain { background: #f7fbfb; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 4px; }
+  .explain p { margin-bottom: 8px; color: var(--text); font-size: 14px; }
+  .explain p:last-child { margin-bottom: 0; }
+
+  .note { font-size: 13px; color: var(--text-light); margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--border); }
+
+  form { display: grid; gap: 14px; }
+  label { font-size: 14px; font-weight: 600; color: var(--text); display: block; margin-bottom: 5px; }
+  label .req { color: #c44; font-size: 12px; }
+  input[type="text"], input[type="email"], textarea {
+    width: 100%; padding: 11px 13px; border: 1px solid var(--border);
+    border-radius: 7px; font-size: 15px; font-family: inherit; background: #fff; color: var(--text);
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,204,202,.2); }
+  .radio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .radio-grid label {
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    padding: 13px; text-align: center; cursor: pointer; font-weight: 600; margin: 0; transition: all .15s;
+  }
+  .radio-grid input { display: none; }
+  .radio-grid label:has(input:checked) { border-color: var(--primary-dark); background: #e7f6f5; color: var(--primary-dark); }
+  button[type="submit"] {
+    background: var(--primary-dark); color: #fff; padding: 15px 24px; border: none; border-radius: 8px;
+    font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 6px;
+  }
+  button[type="submit"]:hover { background: #327472; }
+
+  footer { margin-top: 44px; padding: 22px; text-align: center; color: var(--text-light); font-size: 12px; }
+
+  @media (max-width: 600px) {
+    .ba, .radio-grid { grid-template-columns: 1fr; }
+    .shots { gap: 10px; }
+    .shot { padding: 8px; }
+    header h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>美容師求人LP　修正内容ご確認シート</h1>
+  <div class="sub">株式会社アールホールディングス様</div>
+  <div class="date">2026年10月17日 反映分</div>
+</header>
+
+<div class="container">
+
+  <div class="card lead">
+    <p style="margin-bottom:10px;">
+      いつもお世話になっております。<br>
+      10月14日にLINEでご連絡いただいた2点を、<strong>本番サイトへ反映いたしました。</strong>
+    </p>
+    <p style="margin-bottom:14px;">
+      下記の内容をご確認のうえ、ページ下部のフォームより結果をお知らせください。
+    </p>
+    <a class="btn-link" href="https://recruit.hair-design-ar.com/" target="_blank" rel="noopener">実際のページを開いて確認する</a>
+    <p style="font-size:13px; margin-top:10px; margin-bottom:0;">
+      ※ 変更が反映されていない場合は、スマホは一度ページを閉じてから開き直し、パソコンは「Ctrl を押しながら F5」をお試しください。
+    </p>
+  </div>
+
+  <h2>反映した修正内容（2件）</h2>
+
+  <!-- 1 -->
+  <div class="item">
+    <div class="item-head">
+      <span class="num">1</span>
+      <span class="item-title">3ヶ月後からの基本給を24万円に訂正</span>
+      <span class="badge">反映済み</span>
+    </div>
+    <div class="item-body">
+      <div class="place">該当箇所：<span>募集要項 ＞ 給与 ＞ 【月給】</span></div>
+      <div class="ba">
+        <div class="before"><span class="label">修正前</span><pre>３ヶ月後から基本給　<span class="del">２５万円</span></pre></div>
+        <div class="after"><span class="label">修正後</span><pre>３ヶ月後から基本給　<span class="hl">２４万円</span></pre></div>
+      </div>
+      <div class="shots">
+        <div class="shot before">
+          <span class="label">修正前（いただいた画面）</span>
+          <a href="shots/20261017/before-kyuyo.jpg" target="_blank" rel="noopener"><img src="shots/20261017/before-kyuyo.jpg" alt="修正前の給与欄。３ヶ月後から基本給２５万円と表示"></a>
+        </div>
+        <div class="shot after">
+          <span class="label">修正後（現在のスマホ表示）</span>
+          <a href="shots/20261017/after-kyuyo.jpg" target="_blank" rel="noopener"><img src="shots/20261017/after-kyuyo.jpg" alt="修正後の給与欄。３ヶ月後から基本給２４万円と表示"></a>
+        </div>
+      </div>
+      <p class="zoom">※ 画像をタップすると大きく表示されます</p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="item">
+    <div class="item-head">
+      <span class="num">2</span>
+      <span class="item-title">スマホで見にくくなっていた件</span>
+      <span class="badge">反映済み</span>
+    </div>
+    <div class="item-body">
+      <div class="explain">
+        <p><strong>原因：</strong>ホームページの土台となるシステム（WordPress）が自動で新しい版に更新され、その影響でスマホ表示のときに「縦に1列で並べる」設定が効かなくなっていました。</p>
+        <p>そのため、本来は縦に並ぶ写真や文章が、スマホでも横に2列〜4列並んだまま細く詰まって表示されていました。ページの文章や写真そのものは変わっていません。</p>
+        <p><strong>対応：</strong>この設定をページに直接書き足し、以前と同じく「見出し → 写真 → 文章」の順に縦1列で並ぶように戻しました。パソコンでの表示はこれまでどおりです。</p>
+      </div>
+
+      <div class="place" style="margin-top:16px;">該当箇所：<span>アールが安心して働ける5つの理由</span></div>
+      <div class="shots">
+        <div class="shot before">
+          <span class="label">修正前（いただいた画面）</span>
+          <a href="shots/20261017/before-riyu.jpg" target="_blank" rel="noopener"><img src="shots/20261017/before-riyu.jpg" alt="修正前。理由の説明が横に2列並び、文字が細く詰まっている"></a>
+          <p class="cap">左右に2つ並び、見出しも文章も細く詰まっていました。</p>
+        </div>
+        <div class="shot after">
+          <span class="label">修正後（現在のスマホ表示）</span>
+          <a href="shots/20261017/after-riyu.jpg" target="_blank" rel="noopener"><img src="shots/20261017/after-riyu.jpg" alt="修正後。見出し、写真、文章が縦1列で並んでいる"></a>
+          <p class="cap">見出し → 写真 → 文章の順に、画面いっぱいの幅で並びます。</p>
+        </div>
+      </div>
+
+      <div class="place" style="margin-top:20px;">該当箇所：<span>お仕事内容（お客様の口コミ）</span></div>
+      <div class="shots">
+        <div class="shot before">
+          <span class="label">修正前（いただいた画面）</span>
+          <a href="shots/20261017/before-voice.jpg" target="_blank" rel="noopener"><img src="shots/20261017/before-voice.jpg" alt="修正前。写真と口コミが横に2列並び、口コミの文字が小さい"></a>
+          <p class="cap">写真と口コミが横に2つ並び、口コミの文字がとても小さくなっていました。</p>
+        </div>
+        <div class="shot after">
+          <span class="label">修正後（現在のスマホ表示）</span>
+          <a href="shots/20261017/after-voice.jpg" target="_blank" rel="noopener"><img src="shots/20261017/after-voice.jpg" alt="修正後。写真と口コミが縦1列で並び、口コミが読める大きさになっている"></a>
+          <p class="cap">写真 → 口コミの順に1件ずつ並び、口コミが読める大きさになりました。</p>
+        </div>
+      </div>
+      <p class="zoom">※ 画像をタップすると大きく表示されます</p>
+
+      <div class="note">
+        「転職事例」「スタッフの声」「応募の流れ」など、ページ内のほかの横並び部分も同じ原因だったため、あわせて縦1列に戻っています。<br>
+        ページ上部のチェックリスト（土日祝休み可能 など）は、もともとスマホでも2列で見せる作りのため、2列のままです。
+      </div>
+    </div>
+  </div>
+
+  <h2>ご確認結果のご連絡</h2>
+
+  <div class="card">
+    <form action="https://formsubmit.co/yudai0714@ydk-ai.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="【確認結果】美容師求人LP 2026-10-17 反映分／アールホールディングス様">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://yuudai0714.github.io/client-portals/ar-group/thanks.html">
+      <input type="hidden" name="確認シート" value="美容師求人LP 2026-10-17 反映分">
+
+      <div>
+        <label>お名前 <span class="req">必須</span></label>
+        <input type="text" name="お名前" required placeholder="例：西中様">
+      </div>
+
+      <div>
+        <label>返信先メールアドレス <span class="req">必須</span></label>
+        <input type="email" name="メールアドレス" required placeholder="example@hair-design-ar.com">
+      </div>
+
+      <div>
+        <label>反映した2件の修正について <span class="req">必須</span></label>
+        <div class="radio-grid">
+          <label><input type="radio" name="2件の修正" value="すべてOK" required>すべてOK</label>
+          <label><input type="radio" name="2件の修正" value="直してほしい箇所あり">直してほしい箇所あり</label>
+        </div>
+      </div>
+
+      <div>
+        <label>ご要望・修正指示（自由記入）</label>
+        <textarea name="ご要望・修正指示" placeholder="例：スマホで○○の部分がまだ見にくい"></textarea>
+      </div>
+
+      <div>
+        <label>画像の添付（任意）</label>
+        <input type="file" name="attachment" accept="image/*,.pdf" multiple>
+        <p style="font-size:12px; margin:6px 0 0;">画面のスクリーンショットを添付いただくと、正確に把握できます（合計10MBまで）。</p>
+      </div>
+
+      <button type="submit">確認結果を送信する</button>
+    </form>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <p style="margin-bottom:6px;"><strong style="color:var(--primary-dark);">直接のご連絡</strong></p>
+    <p style="margin-bottom:0;">
+      LINEでのご連絡も引き続き承っております。<br>
+      メール：yudai0714@ydk-ai.com　／　担当：株式会社YDK　北田
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>株式会社YDK｜サイト管理サービス</p>
+  <p>最終更新：2026年10月17日</p>
+</footer>
+
+</body>
+</html>
