@@ -128,6 +128,9 @@
   .ba.single { grid-template-columns: 1fr; }
   .ba.single .after img { max-width: 800px; margin: 0 auto; }
   .pc-sp { display:grid; grid-template-columns: 2fr 1fr; gap: 12px; align-items: start; }
+  .pc-sp > div { border-radius: 10px; padding: 10px; min-width: 0; }
+  .pc-sp .label { font-size: 12px; font-weight: 700; letter-spacing: .06em; margin-bottom: 8px; display: block; color: #2f8159; }
+  .pc-sp img { width: 100%; height: auto; display: block; border-radius: 6px; border: 1px solid rgba(0,0,0,.06); background: #fff; }
   @media (max-width: 600px) { .pc-sp { grid-template-columns: 1fr; } }
 </style>
 </head>
